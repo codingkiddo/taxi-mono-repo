@@ -1,0 +1,9 @@
+target
+**/target
+**/.idea
+**/.DS_Store
+**/.git
+**/.env
+**/node_modules
+apps/**/build
+apps/**/dist
