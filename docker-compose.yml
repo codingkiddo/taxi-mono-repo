@@ -38,43 +38,57 @@ services:
     ports: ["8080:8080"]
 
   gateway:
-    build: ./gateway
+    build:
+      context: .
+      dockerfile: ./gateway/Dockerfile
     depends_on: [rider-service, driver-service, dispatch-service, trip-service, fare-service, payment-service]
     ports: ["8088:8088"]
 
   rider-service:
-    build: ./rider-service
+    build:
+      context: .
+      dockerfile: ./rider-service/Dockerfile
     environment:
       FARE_URL: http://fare-service:8085
     ports: ["8081:8081"]
 
   driver-service:
-    build: ./driver-service
+    build:
+      context: .
+      dockerfile: ./driver-service/Dockerfile
     environment:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - SCHEMA_REGISTRY_URL=http://schema-registry:8081
     ports: ["8082:8082"]
 
   dispatch-service:
-    build: ./dispatch-service
+    build:
+      context: .
+      dockerfile: ./dispatch-service/Dockerfile
     environment:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - SCHEMA_REGISTRY_URL=http://schema-registry:8081
     ports: ["8083:8083"]
 
   trip-service:
-    build: ./trip-service
+    build:
+      context: .
+      dockerfile: ./trip-service/Dockerfile
     environment:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - SCHEMA_REGISTRY_URL=http://schema-registry:8081
     ports: ["8084:8084"]
 
   fare-service:
-    build: ./fare-service
+    build:
+      context: .
+      dockerfile: ./fare-service/Dockerfile
     ports: ["8085:8085"]
 
   payment-service:
-    build: ./payment-service
+    build:
+      context: .
+      dockerfile: ./payment-service/Dockerfile
     environment:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - SCHEMA_REGISTRY_URL=http://schema-registry:8081
@@ -111,3 +125,4 @@ services:
     volumes:
       - ./db/migrations:/flyway/sql:ro
       - ./db/flyway.conf:/flyway/conf/flyway.conf:ro
+
