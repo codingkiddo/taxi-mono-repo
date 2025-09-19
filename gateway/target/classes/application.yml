@@ -1,0 +1,29 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: rider
+          uri: http://rider-service:8081
+          predicates: [ Path=/rider/** ]
+        - id: driver
+          uri: http://driver-service:8082
+          predicates: [ Path=/driver/** ]
+        - id: dispatch
+          uri: http://dispatch-service:8083
+          predicates: [ Path=/dispatch/** ]
+        - id: trip
+          uri: http://trip-service:8084
+          predicates: [ Path=/trip/** ]
+        - id: fare
+          uri: http://fare-service:8085
+          predicates: [ Path=/fare/** ]
+        - id: payment
+          uri: http://payment-service:8086
+          predicates: [ Path=/payment/** ]
+management:
+  endpoints:
+    web.exposure.include: "*"

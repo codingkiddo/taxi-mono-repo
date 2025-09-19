@@ -1,0 +1,41 @@
+{
+  "type": "record",
+  "name": "TripLifecycle",
+  "namespace": "com.codingkiddo.taxi.avro",
+  "fields": [
+    {
+      "name": "tripId",
+      "type": "string"
+    },
+    {
+      "name": "event",
+      "type": {
+        "type": "enum",
+        "name": "TripEvent",
+        "symbols": [
+          "CREATED",
+          "ASSIGNED",
+          "STARTED",
+          "COMPLETED",
+          "CANCELLED"
+        ]
+      }
+    },
+    {
+      "name": "payload",
+      "type": [
+        "null",
+        {
+          "type": "map",
+          "values": "string"
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "ts",
+      "type": "long",
+      "logicalType": "timestamp-millis"
+    }
+  ]
+}

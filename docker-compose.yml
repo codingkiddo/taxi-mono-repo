@@ -1,0 +1,113 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: taxi
+    ports: ["5432:5432"]
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.1
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.1
+    depends_on: [zookeeper]
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports: ["9092:9092"]
+
+  redis:
+    image: redis:7
+    ports: ["6379:6379"]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    command: ["start-dev", "--http-port=8080", "--import-realm"]
+    volumes:
+      - ./keycloak/realm-export:/opt/keycloak/data/import:ro
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports: ["8080:8080"]
+
+  gateway:
+    build: ./gateway
+    depends_on: [rider-service, driver-service, dispatch-service, trip-service, fare-service, payment-service]
+    ports: ["8088:8088"]
+
+  rider-service:
+    build: ./rider-service
+    environment:
+      FARE_URL: http://fare-service:8085
+    ports: ["8081:8081"]
+
+  driver-service:
+    build: ./driver-service
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - SCHEMA_REGISTRY_URL=http://schema-registry:8081
+    ports: ["8082:8082"]
+
+  dispatch-service:
+    build: ./dispatch-service
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - SCHEMA_REGISTRY_URL=http://schema-registry:8081
+    ports: ["8083:8083"]
+
+  trip-service:
+    build: ./trip-service
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - SCHEMA_REGISTRY_URL=http://schema-registry:8081
+    ports: ["8084:8084"]
+
+  fare-service:
+    build: ./fare-service
+    ports: ["8085:8085"]
+
+  payment-service:
+    build: ./payment-service
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - SCHEMA_REGISTRY_URL=http://schema-registry:8081
+    ports: ["8086:8086"]
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.57
+    ports: ["16686:16686", "4317:4317"]
+
+  grafana:
+    image: grafana/grafana:latest
+    ports: ["3000:3000"]
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.6.1
+    depends_on: [kafka]
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    ports: ["8081:8081"]
+
+  kafka-init:
+    image: confluentinc/cp-kafka:7.6.1
+    depends_on: [kafka]
+    entrypoint: ["/bin/bash","/init/create-topics.sh"]
+    volumes:
+      - ./kafka/init:/init:ro
+
+  db-migrator:
+    image: flyway/flyway:10.20.0
+    depends_on: [postgres]
+    command: -configFiles=/flyway/conf/flyway.conf migrate
+    volumes:
+      - ./db/migrations:/flyway/sql:ro
+      - ./db/flyway.conf:/flyway/conf/flyway.conf:ro

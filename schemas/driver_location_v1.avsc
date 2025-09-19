@@ -1,0 +1,32 @@
+{
+  "type": "record",
+  "name": "DriverLocation",
+  "namespace": "com.codingkiddo.taxi.avro",
+  "fields": [
+    {
+      "name": "driverId",
+      "type": "string"
+    },
+    {
+      "name": "lat",
+      "type": "double"
+    },
+    {
+      "name": "lng",
+      "type": "double"
+    },
+    {
+      "name": "speedKph",
+      "type": [
+        "null",
+        "double"
+      ],
+      "default": null
+    },
+    {
+      "name": "ts",
+      "type": "long",
+      "logicalType": "timestamp-millis"
+    }
+  ]
+}

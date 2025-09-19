@@ -1,0 +1,13 @@
+server:
+  port: 8083
+
+app:
+  kafka:
+    bootstrap: ${KAFKA_BOOTSTRAP_SERVERS:http://kafka:9092}
+    schemaRegistry: ${SCHEMA_REGISTRY_URL:http://schema-registry:8081}
+spring:
+  flyway:
+    enabled: true
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgres:5432/taxi}
+    user: ${SPRING_DATASOURCE_USERNAME:app}
+    password: ${SPRING_DATASOURCE_PASSWORD:app}

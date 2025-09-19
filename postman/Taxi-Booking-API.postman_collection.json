@@ -1,0 +1,201 @@
+{
+  "info": {
+    "name": "Taxi Booking API (Gateway)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Estimate (Rider)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8088/rider/estimate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "rider",
+            "estimate"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"pickup\": {\"lat\": 12.9716, \"lng\": 77.5946}, \"drop\": {\"lat\": 13.0359, \"lng\": 77.597}, \"category\": \"SEDAN\"}"
+        }
+      }
+    },
+    {
+      "name": "Driver Ping (Kafka Avro)",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:8088/driver/ping?driverId=D1&lat=12.97&lng=77.59&speedKph=34",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "driver",
+            "ping"
+          ],
+          "query": [
+            {
+              "key": "driverId",
+              "value": "D1"
+            },
+            {
+              "key": "lat",
+              "value": "12.97"
+            },
+            {
+              "key": "lng",
+              "value": "77.59"
+            },
+            {
+              "key": "speedKph",
+              "value": "34"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Dispatch Rank",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8088/dispatch/rank?requestId=REQ1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "dispatch",
+            "rank"
+          ],
+          "query": [
+            {
+              "key": "requestId",
+              "value": "REQ1"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "[\"D1\", \"D2\", \"D3\"]"
+        }
+      }
+    },
+    {
+      "name": "Trip Start (emits Avro)",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:8088/trip/123/start?riderId=R1&driverId=D1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "trip",
+            "123",
+            "start"
+          ],
+          "query": [
+            {
+              "key": "riderId",
+              "value": "R1"
+            },
+            {
+              "key": "driverId",
+              "value": "D1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Trip Finish (emits Avro)",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:8088/trip/123/finish",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "trip",
+            "123",
+            "finish"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Payment Init",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:8088/payment/123/init?method=UPI",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8088",
+          "path": [
+            "payment",
+            "123",
+            "init"
+          ],
+          "query": [
+            {
+              "key": "method",
+              "value": "UPI"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8088"
+    },
+    {
+      "key": "realm",
+      "value": "taxi"
+    },
+    {
+      "key": "token_url",
+      "value": "http://localhost:8080/realms/taxi/protocol/openid-connect/token"
+    },
+    {
+      "key": "client_id",
+      "value": "gateway"
+    },
+    {
+      "key": "client_secret",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "realm": "taxi",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "gateway",
+      "publicClient": true,
+      "redirectUris": [
+        "*"
+      ],
+      "directAccessGrantsEnabled": true
+    },
+    {
+      "clientId": "rider-app",
+      "publicClient": true,
+      "redirectUris": [
+        "*"
+      ],
+      "directAccessGrantsEnabled": true
+    },
+    {
+      "clientId": "driver-app",
+      "publicClient": true,
+      "redirectUris": [
+        "*"
+      ],
+      "directAccessGrantsEnabled": true
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "RIDER"
+      },
+      {
+        "name": "DRIVER"
+      },
+      {
+        "name": "ADMIN"
+      }
+    ]
+  },
+  "users": [
+    {
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin"
+        }
+      ],
+      "realmRoles": [
+        "ADMIN"
+      ]
+    }
+  ]
+}
