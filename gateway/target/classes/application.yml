@@ -7,7 +7,7 @@ spring:
     gateway:
       routes:
         - id: rider
-          uri: http://rider-service:8081
+          uri: http://rider-service:8087
           predicates: [ Path=/rider/** ]
         - id: driver
           uri: http://driver-service:8082
