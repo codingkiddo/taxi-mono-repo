@@ -1,7 +1,0 @@
-/Users/vinodkumar/Documents/Technologies/Microservices/TaxiBooking/taxi-mono-repo/driver-service/src/main/java/com/codingkiddo/taxi/driverservice/DriverController.java
-/Users/vinodkumar/Documents/Technologies/Microservices/TaxiBooking/taxi-mono-repo/driver-service/src/main/java/com/codingkiddo/taxi/driverservice/DriverKafkaProps.java
-/Users/vinodkumar/Documents/Technologies/Microservices/TaxiBooking/taxi-mono-repo/driver-service/src/main/java/com/codingkiddo/taxi/driverservice/DriverLocationEvent.java
-/Users/vinodkumar/Documents/Technologies/Microservices/TaxiBooking/taxi-mono-repo/driver-service/src/main/java/com/codingkiddo/taxi/driverservice/DriverLocationPublisher.java
-/Users/vinodkumar/Documents/Technologies/Microservices/TaxiBooking/taxi-mono-repo/driver-service/src/main/java/com/codingkiddo/taxi/driverservice/DriverStatus.java
-/Users/vinodkumar/Documents/Technologies/Microservices/TaxiBooking/taxi-mono-repo/driver-service/src/main/java/com/codingkiddo/taxi/driverservice/DriverserviceApplication.java
-/Users/vinodkumar/Documents/Technologies/Microservices/TaxiBooking/taxi-mono-repo/driver-service/src/main/java/com/codingkiddo/taxi/driverservice/KafkaConfig.java

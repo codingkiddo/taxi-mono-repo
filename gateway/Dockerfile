@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . /app
 
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
-RUN --mount=type=cache,target=/root/.m2 mvn -q -DskipTests -Dmaven.multiModuleProjectDirectory=/app -f /app/pom.xml -pl gateway -am package
+RUN --mount=type=cache,target=/root/.m2 mvn -q -DskipTests -Dmaven.multiModuleProjectDirectory=/app -f /app/pom.xml -pl gateway -am clean package 
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app

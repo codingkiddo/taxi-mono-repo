@@ -1,7 +1,0 @@
-com/codingkiddo/taxi/dispatchservice/DispatchserviceApplication.class
-com/codingkiddo/taxi/dispatchservice/KafkaConsumerConfig.class
-com/codingkiddo/taxi/dispatchservice/DispatchController.class
-com/codingkiddo/taxi/dispatchservice/DispatchKafkaProps.class
-com/codingkiddo/taxi/dispatchservice/AssignResponse.class
-com/codingkiddo/taxi/dispatchservice/Candidate.class
-com/codingkiddo/taxi/dispatchservice/LocationListener.class
